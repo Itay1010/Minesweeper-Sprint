@@ -25,14 +25,15 @@ function renderBoard(board) {
         for (var j = 0; j < board[0].length; j++) {
             // var className = board[i][j].content;
             var cellState = board[i][j].isDisplayed
-            var className = cellState ? 'displayed' : 'hidden';
+            var className = cellState ? 'displayed ' : 'hidden ';
+            className += gIsHint ? 'hint-active ' : ''
             var apply = EMPTY
             if (board[i][j].isFlagged) apply = FLAG
             if (cellState) {
                 if (board[i][j].isMine) apply = MINE
                 else if (board[i][j].minesAround > 0) apply = board[i][j].minesAround
             }
-            strHTML += `<td data-i="${i}" data-j="${j}" oncontextmenu="return false;" onmouseup="cellClicked(this, event, ${i}, ${j})" class="cell ${className}">${apply}</td>`;
+            strHTML += `<td data-i="${i}" data-j="${j}" oncontextmenu="return false;" onmouseup="cellClicked(this, event, ${i}, ${j})" class="cell ${className} ">${apply}</td>`;
         }
         strHTML += "</tr>";
     }

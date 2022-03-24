@@ -11,11 +11,12 @@ var gGame = {
     markedCount: 0,
     lifeCounter: 3
 }
-var gBoard, gTimerId, gElTimer;
+var gBoard, gTimerId, gElTimer, gIsHint;
 var gSize = 8;
 var gIsModalOpen = false
 
 function init() {
+    gIsHint = false
     gBoard = creatBoard(gSize, gSize);
     gElTimer = document.querySelector('.timer')
     gSize = 8
@@ -172,7 +173,7 @@ function resetGame() {
     document.querySelector('.timer').innerText = '000'
     document.querySelector('.life').innerText = '❤❤❤'
     document.querySelector('input[value="8"]').checked = 'checked'
-    
+
     if (gIsModalOpen) closeModal()
     init()
 }
@@ -185,7 +186,7 @@ function openModal(isWin) {
     var winOrLose = isWin ? 'You Win!' : 'You Lose!'
     setTimeout(() => { elModal.style.opacity = '89%' }, 10)
     elModal.querySelector('span').innerText = winOrLose
-    
+
 }
 
 function closeModal() {
@@ -196,8 +197,9 @@ function closeModal() {
 }
 
 
-function hintActive() {
-    
-}
+// function hintActive() {
+//     gIsHint = true
+//     renderBoard(gBoard)
+// }
 
 

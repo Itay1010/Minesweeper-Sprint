@@ -100,15 +100,20 @@ input[name="difficulty"] {
     width: 70px;
     height: 38px;
     padding: 5px;
-    left: 83px;
+    left: 15%;
 }
 
 .hints:hover {
     box-shadow: 0px 0px 11px 2px #e0e2db9e;
 }
 
-.hint-active {
-    box-shadow: 0 0 black;
+.hint-active:hover {
+    border: outset #dbc3bd;
+}
+
+.hint-active:active {
+    box-shadow: inset 1px 1px 20px 3px #00000099;
+    border: inset #dbc3bd;
 }
 
 table {
