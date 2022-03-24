@@ -1,0 +1,117 @@
+* {
+    text-align: center;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-image: url(../img/background.gif);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+h1 {
+    color: #C94067;
+    background-color: #74B2F4;
+    width: 50%;
+    margin: auto;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    font-family: system-ui;
+}
+
+.modal {
+    position: absolute;
+    display: none;
+    opacity: 0%;
+    transition: 1s ease-in-out;
+    background-color: #74B2F4;
+    font-size: xx-large;
+    left: 40%;
+    top: 40%;
+    height: 230px;
+    width: 290px;
+    padding: 50px;
+}
+
+.container {
+    margin: auto;
+    width: 80%;
+    height: 80%;
+}
+
+.top-bar {
+    width: 550px;
+    height: 50px;
+    margin: auto;
+    margin-bottom: 0px;
+    background-color: grey;
+    vertical-align: middle;
+}
+
+.life {
+    display: inline-block;
+    /* position: static; */
+    vertical-align: middle;
+    margin-left: 20px;
+    margin-right: 50px;
+}
+
+input[name="difficulty"] {
+    margin: 20px 1px;
+}
+
+.face {
+    display: inline-block;
+    font-size: larger;
+    margin-left: 10px;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+}
+
+.timer {
+    display: inline-block;
+    position: static;
+    font-size: xx-large;
+    font-family: monospace;
+    height: 30px;
+    width: 60px;
+    margin-left: 50px;
+    background-color: #74B2F4;
+    border-radius: 10%;
+}
+
+table {
+    width: 550px;
+    height: 650px;
+    margin: auto;
+    margin-top: 2px;
+    margin-bottom: 25px;
+    outline: 1px solid;
+    border-spacing: 0.1px;
+    font-size: 1rem;
+    table-layout: fixed;
+    /* background-color: green; */
+}
+
+tr {
+    width: 10px;
+    height: 10px;
+}
+
+.cell {
+    border: 2px solid black;
+    padding: 0px;
+    width: 6%;
+    height: 6%;
+    font-size: x-large;
+}
+
+.hidden {
+    background-color: #9c9c9c;
+}
+
+.displayed {
+    background-color: #e0e2db;
+}
