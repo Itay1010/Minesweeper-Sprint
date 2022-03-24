@@ -107,6 +107,10 @@ input[name="difficulty"] {
     box-shadow: 0px 0px 11px 2px #e0e2db9e;
 }
 
+.hint-active {
+    box-shadow: 0 0 black;
+}
+
 table {
     width: 550px;
     height: 650px;

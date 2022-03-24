@@ -197,7 +197,7 @@ function closeModal() {
 
 
 function hintActive() {
-
+    
 }
 
 
