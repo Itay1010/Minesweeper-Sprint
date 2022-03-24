@@ -88,8 +88,8 @@ function cellClicked(ev, i, j) {
     else if (gBoard[i][j].isDisplayed || !gGame.isOn) return
 
     if (ev.button === 0 && !gBoard[i][j].isFlagged) {
-        if (checkVictory(false, i, j)) return;
         recursiveReveal(gBoard, i, j);
+        if (checkVictory(false, i, j)) return;
     }
     else if (ev.button === 2) {
         flagCell(i, j);
@@ -111,7 +111,6 @@ function recursiveReveal(mat, rowIdx, colIdx) {
     var middleCell = mat[rowIdx][colIdx]
     revealCell(rowIdx, colIdx)
     if (middleCell.minesAround !== 0) {
-        console.log('returning');
         return
     }
     for (var i = rowIdx - 1; i <= rowIdx + 1; i++) {
@@ -123,7 +122,7 @@ function recursiveReveal(mat, rowIdx, colIdx) {
             // debugger
             if (cell.minesAround === 0 && !cell.isMine && !cell.isDisplayed) {
                 recursiveReveal(mat, i, j)
-            } else if (!cell.isMine) {
+            } else if (!cell.isDisplayed && !cell.isMine) {
                 revealCell(i, j)
             }
         }
@@ -144,7 +143,7 @@ function flagCell(i, j) {
 }
 
 function checkVictory(flagging, i, j) {
-    if ((gGame.visibleCells) === (gSize ** 2) - gGame.mineLocation.length &&
+    if ((gGame.visibleCells) === (gSize ** 2) - gGame.mineLocation.length&&
         gGame.markedCount === gGame.mineLocation.length) {
         victory();
         return true
