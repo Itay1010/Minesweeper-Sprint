@@ -8,7 +8,8 @@ var gGame = {
     isOn: false,
     mineLocation: [],
     visibleCells: 0,
-    markedCount: 0
+    markedCount: 0,
+    lifeCounter: 3
 }
 var gBoard, gTimerId, gElTimer;
 var gSize = 8;
@@ -41,59 +42,17 @@ function cycleTimer(startT) {
 
 }
 
-function placeMines(board, cellI, cellJ) {
-    var minesCount = 12
-    if (gSize === 4) minesCount = 2
-    else if (gSize === 8) minesCount = 12
-    else if (gSize === 12) minesCount = 30
-    for (var c = 0; c < minesCount; c++) {
-        var randCell = getRandCell(board, cellI, cellJ)
-        board[randCell.i][randCell.j].isMine = true
-        gGame.mineLocation.push(randCell)
-
-    }
-}
-
-function countMines(mat, rowIdx, colIdx) {
-    var mines = 0
-    var cell = mat[rowIdx][colIdx]
-    for (var i = rowIdx - 1; i <= rowIdx + 1; i++) {
-        if (i < 0 || i > mat.length - 1) continue
-        for (var j = colIdx - 1; j <= colIdx + 1; j++) {
-            if (j < 0 || j > mat[0].length - 1) continue
-            if (i === rowIdx && j === colIdx) continue
-            // console.log('j:', j)
-            var cell = mat[i][j]
-            if (cell.isMine) {
-                mines++
-            }
-        }
-    }
-    return mines
-}
-
-function setMinesCount(mat) {
-    for (var i = 0; i < mat.length; i++) {
-        for (var j = 0; j < mat[0].length; j++) {
-            var currCell = mat[i][j]
-            var currCount = countMines(mat, i, j)
-            if (currCell.isMine || currCount === 0) continue
-            mat[i][j].minesAround = currCount
-        }
-    }
-}
-
-function cellClicked(ev, i, j) {
+function cellClicked(el, ev, i, j) {
     if (gGame.visibleCells === 0 && ev.button === 0) startGame(i, j)
     else if (gBoard[i][j].isDisplayed || !gGame.isOn) return
 
     if (ev.button === 0 && !gBoard[i][j].isFlagged) {
+        if (checkVictory(false, i, j, el)) return;
         recursiveReveal(gBoard, i, j);
-        if (checkVictory(false, i, j)) return;
     }
     else if (ev.button === 2) {
         flagCell(i, j);
-        if (checkVictory(true, i, j)) return;
+        if (checkVictory(true, i, j, el)) return;
     }
     //DOM
     renderBoard(gBoard)
@@ -118,16 +77,16 @@ function recursiveReveal(mat, rowIdx, colIdx) {
         for (var j = colIdx - 1; j <= colIdx + 1; j++) {
             if (j < 0 || j > mat[0].length - 1) continue
             if (i === rowIdx && j === colIdx) continue
-            var cell = mat[i][j]
-            // debugger
+            var cell = mat[i][j];
             if (cell.minesAround === 0 && !cell.isMine && !cell.isDisplayed) {
-                recursiveReveal(mat, i, j)
+                recursiveReveal(mat, i, j);
             } else if (!cell.isDisplayed && !cell.isMine) {
-                revealCell(i, j)
+                revealCell(i, j);
             }
         }
     }
     renderBoard(gBoard)
+    checkVictory(false, rowIdx, colIdx, 0)
     return
 }
 
@@ -136,35 +95,37 @@ function flagCell(i, j) {
     var modelCell = gBoard[i][j]
     if (modelCell.isFlagged) {
         if (modelCell.isMine) gGame.markedCount--
-        modelCell.isFlagged = false
+        modelCell.isFlagged = false;
         return
     } else if (modelCell.isMine) gGame.markedCount++
-    modelCell.isFlagged = true
+    modelCell.isFlagged = true;
 }
 
-function checkVictory(flagging, i, j) {
-    if ((gGame.visibleCells) === (gSize ** 2) - gGame.mineLocation.length&&
-        gGame.markedCount === gGame.mineLocation.length) {
+function checkVictory(flagging, i, j, el) {
+    if (gGame.markedCount === gGame.mineLocation.length &&
+        (gGame.visibleCells) === (gSize ** 2) - gGame.mineLocation.length
+        ) {
         victory();
         return true
     }
     else if (!flagging && gBoard[i][j].isMine) {
-        lose();
+        loseLife(el);
         return true
     }
 }
 
 function victory() {
-    gGame.isOn = false
+    gGame.isOn = false;
     gGame.mineLocation.forEach(function (currVal) {
-        gBoard[currVal.i][currVal.j].isDisplayed
+        gBoard[currVal.i][currVal.j].isDisplayed = true;
     })
-    renderBoard(gBoard)
-    openModal(true)
-    clearInterval(gTimerId)
-    gTimerId = null
-
-
+    renderBoard(gBoard);
+    victoryFace()
+    openModal(true);
+    clearInterval(gTimerId);
+    gTimerId = null;
+    
+    
 }
 
 function lose() {
@@ -172,37 +133,63 @@ function lose() {
     gGame.mineLocation.forEach(function (currVal) {
         gBoard[currVal.i][currVal.j].isDisplayed = true
     })
-    renderBoard(gBoard)
-    openModal(false)
-    clearInterval(gTimerId)
-    gTimerId = null
+    renderBoard(gBoard);
+    loseFace()
+    openModal(false);
+    clearInterval(gTimerId);
+    gTimerId = null;
+}
+
+function loseLife(el) {
+    var elLife = document.querySelector('.life')
+    var elCell = el
+    gGame.lifeCounter--
+    if (gGame.lifeCounter === 0) {
+        lose();
+    }
+    else {
+        elCell.classList.add('flicker')
+        elCell.innerText = MINE
+        setTimeout(function () {
+            elCell.classList.remove('flicker')
+            elCell.innerText = EMPTY
+        }, 2000);
+        
+    }
+    var strHTML = HTMLSyringe(gGame.lifeCounter, '❤');
+    elLife.innerText = strHTML;
 }
 
 function resetGame() {
     clearInterval(gTimerId)
-    gTimerId = null
-    gGame.isOn = false
-    gGame.markedCount = 0
-    gGame.mineLocation = []
-    gGame.visibleCells = 0
+    gTimerId = null;
+    gGame.isOn = false;
+    gGame.lifeCounter = 3;
+    gGame.markedCount = 0;
+    gGame.mineLocation = [];
+    gGame.visibleCells = 0;
     document.querySelector('.timer').innerText = '000'
+    document.querySelector('.life').innerText = '❤❤❤'
     if (gIsModalOpen) closeModal()
     init()
 }
 
 
 function openModal(isWin) {
-    gIsModalOpen = true
+    gIsModalOpen = true;
     var elModal = document.querySelector('.modal')
     elModal.style.display = 'initial'
     var winOrLose = isWin ? 'You Win!' : 'You Lose!'
-    setTimeout(() => { elModal.style.opacity = '100%' }, 10)
+    setTimeout(() => { elModal.style.opacity = '89%' }, 10)
     elModal.querySelector('span').innerText = winOrLose
 }
 
 function closeModal() {
-    gIsModalOpen = false
+    gIsModalOpen = false;
     var elModal = document.querySelector('.modal')
-    elModal.style.display = 'none'
+    elModal.style.display = 'none';
     setTimeout(() => { elModal.style.opacity = '0%' }, 10)
 }
+
+
+

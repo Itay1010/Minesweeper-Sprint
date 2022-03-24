@@ -32,7 +32,7 @@ function renderBoard(board) {
                 if (board[i][j].isMine) apply = MINE
                 else if (board[i][j].minesAround > 0) apply = board[i][j].minesAround
             }
-            strHTML += `<td data-i="${i}" data-j="${j}" oncontextmenu="return false;" onmouseup="cellClicked(event, ${i}, ${j})" class="cell ${className}">${apply}</td>`;
+            strHTML += `<td data-i="${i}" data-j="${j}" oncontextmenu="return false;" onmouseup="cellClicked(this, event, ${i}, ${j})" class="cell ${className}">${apply}</td>`;
         }
         strHTML += "</tr>";
     }
@@ -65,18 +65,12 @@ function changeSize(val) {
     // renderBoard(gBoard)
 }
 
-function HTMLSyringe(arr, onLeft = '', onRight = '') {
+function HTMLSyringe(count, strHTML) {
     var serum = ''
-    for (var i = 0; i < arr.length; i++) {
-        serum += onLeft + arr[i] + onRight
+    for (var i = 0; i < count; i++) {
+        serum += strHTML
     }
     return serum
-}
-
-function renderCell(location, value) {
-    // Select the elCell and set the value
-    var elCell = document.querySelector(`.cell-${location.i}-${location.j}`);
-    elCell.innerHTML = value;
 }
 
 function getRandomInt(min, max) {
@@ -109,19 +103,4 @@ function shuffle(items) {
         items[randIdx] = keep;
     }
     return items;
-}
-
-function lookAround(mat, rowIdx, colIdx) {
-    for (var i = rowIdx - 1; i <= rowIdx + 1; i++) {
-        if (i < 0 || i > mat.length - 1) continue
-        for (var j = colIdx - 1; j <= colIdx + 1; j++) {
-            if (j < 0 || j > mat[0].length - 1) continue
-            if (i === rowIdx && j === colIdx) continue
-            // console.log('j:', j)
-            var cell = mat[i][j]
-            if (cell.isMine) {
-                mines++
-            }
-        }
-    }
 }

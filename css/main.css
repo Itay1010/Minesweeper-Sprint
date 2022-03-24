@@ -11,11 +11,15 @@ body {
 }
 
 h1 {
-    color: #C94067;
-    background-color: #74B2F4;
-    width: 50%;
+    color: #e0e2db;
+    /* background-color: #74B2F4; */
+    border: 33px solid black;
+    border-image: url(../img/title-border2.png) 55%;
+    border-image-width: 100px;
+    width: 40%;
+    height: 128px;
     margin: auto;
-    margin-bottom: 20px;
+    margin-bottom: 1px;
     margin-top: 20px;
     font-family: system-ui;
 }
@@ -51,10 +55,12 @@ h1 {
 
 .life {
     display: inline-block;
-    /* position: static; */
-    vertical-align: middle;
-    margin-left: 20px;
-    margin-right: 50px;
+    position: relative;
+    font-size: larger;
+    margin-left: 2px;
+    margin-right: 64px;
+    width: 70px;
+    height: 22px;
 }
 
 input[name="difficulty"] {
@@ -80,6 +86,15 @@ input[name="difficulty"] {
     margin-left: 50px;
     background-color: #74B2F4;
     border-radius: 10%;
+}
+
+.hints {
+    position: absolute;
+    font-size: x-large;
+    background-color: cornflowerblue;
+    width: 70px;
+    height: 50px;
+    left: 83px;
 }
 
 table {
@@ -114,4 +129,20 @@ tr {
 
 .displayed {
     background-color: #e0e2db;
+}
+
+@keyframes flicker-cell {
+    from {
+        background-color: 9c9c9c;
+    }
+    to {
+        background-color: #e0e2db;
+    }
+}
+
+.flicker {
+    animation-name: flicker-cell;
+    animation-direction: alternate;
+    animation-iteration-count: 5;
+    animation-duration: 0.5s;
 }
