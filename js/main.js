@@ -18,6 +18,7 @@ var gIsModalOpen = false
 function init() {
     gBoard = creatBoard(gSize, gSize);
     gElTimer = document.querySelector('.timer')
+    gSize = 8
     renderBoard(gBoard)
 }
 
@@ -104,7 +105,7 @@ function flagCell(i, j) {
 function checkVictory(flagging, i, j, el) {
     if (gGame.markedCount === gGame.mineLocation.length &&
         (gGame.visibleCells) === (gSize ** 2) - gGame.mineLocation.length
-        ) {
+    ) {
         victory();
         return true
     }
@@ -124,8 +125,8 @@ function victory() {
     openModal(true);
     clearInterval(gTimerId);
     gTimerId = null;
-    
-    
+
+
 }
 
 function lose() {
@@ -150,11 +151,11 @@ function loseLife(el) {
     else {
         elCell.classList.add('flicker')
         elCell.innerText = MINE
+        gBoard[elCell.dataset.i][elCell.dataset.j].isDisplayed = true
         setTimeout(function () {
             elCell.classList.remove('flicker')
-            elCell.innerText = EMPTY
-        }, 2000);
-        
+            renderBoard(gBoard)
+        }, 2500);
     }
     var strHTML = HTMLSyringe(gGame.lifeCounter, '❤');
     elLife.innerText = strHTML;
@@ -170,6 +171,8 @@ function resetGame() {
     gGame.visibleCells = 0;
     document.querySelector('.timer').innerText = '000'
     document.querySelector('.life').innerText = '❤❤❤'
+    document.querySelector('input[value="8"]').checked = 'checked'
+    
     if (gIsModalOpen) closeModal()
     init()
 }
@@ -182,6 +185,7 @@ function openModal(isWin) {
     var winOrLose = isWin ? 'You Win!' : 'You Lose!'
     setTimeout(() => { elModal.style.opacity = '89%' }, 10)
     elModal.querySelector('span').innerText = winOrLose
+    
 }
 
 function closeModal() {
@@ -191,5 +195,9 @@ function closeModal() {
     setTimeout(() => { elModal.style.opacity = '0%' }, 10)
 }
 
+
+function hintActive() {
+
+}
 
 

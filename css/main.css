@@ -2,6 +2,7 @@
     text-align: center;
     box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
+    user-select: none;
 }
 
 body {
@@ -12,14 +13,17 @@ body {
 
 h1 {
     color: #e0e2db;
-    /* background-color: #74B2F4; */
-    border: 33px solid black;
-    border-image: url(../img/title-border2.png) 55%;
-    border-image-width: 100px;
-    width: 40%;
+    background-color: #586da1;
+    border: 50px solid black;
+    border-image: url(../img/title-border3.png) 45%;
+    border-image-repeat: repeat;
+    background-image: linear-gradient(#98648f78 17%, #3096be);
+    background-origin: border-box;
+    background-repeat: no-repeat;
+    width: 550px;
     height: 128px;
     margin: auto;
-    margin-bottom: 1px;
+    margin-bottom: 0px;
     margin-top: 20px;
     font-family: system-ui;
 }
@@ -49,8 +53,7 @@ h1 {
     height: 50px;
     margin: auto;
     margin-bottom: 0px;
-    background-color: grey;
-    vertical-align: middle;
+    background-color: #3096be;
 }
 
 .life {
@@ -84,17 +87,24 @@ input[name="difficulty"] {
     height: 30px;
     width: 60px;
     margin-left: 50px;
-    background-color: #74B2F4;
+    background-color: goldenrod;
     border-radius: 10%;
 }
 
 .hints {
     position: absolute;
     font-size: x-large;
+    box-sizing: content-box;
     background-color: cornflowerblue;
+    border-radius: 35%;
     width: 70px;
-    height: 50px;
+    height: 38px;
+    padding: 5px;
     left: 83px;
+}
+
+.hints:hover {
+    box-shadow: 0px 0px 11px 2px #e0e2db9e;
 }
 
 table {
@@ -133,7 +143,7 @@ tr {
 
 @keyframes flicker-cell {
     from {
-        background-color: 9c9c9c;
+        background-color: #9c9c9c;
     }
     to {
         background-color: #e0e2db;
