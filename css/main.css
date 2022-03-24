@@ -60,10 +60,14 @@ h1 {
     display: inline-block;
     position: relative;
     font-size: larger;
-    margin-left: 2px;
-    margin-right: 64px;
-    width: 70px;
+    margin-left: -16px;
+    margin-right: 24px;
+    width: 118px;
     height: 22px;
+}
+
+.life span {
+    color: red;
 }
 
 input[name="difficulty"] {
@@ -100,7 +104,8 @@ input[name="difficulty"] {
     width: 70px;
     height: 38px;
     padding: 5px;
-    left: 15%;
+    left: 35%;
+    bottom: 680px;
 }
 
 .hints:hover {

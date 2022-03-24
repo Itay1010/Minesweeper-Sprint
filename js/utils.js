@@ -26,7 +26,7 @@ function renderBoard(board) {
             // var className = board[i][j].content;
             var cellState = board[i][j].isDisplayed
             var className = cellState ? 'displayed ' : 'hidden ';
-            className += gIsHint ? 'hint-active ' : ''
+            className += gHintActive ? 'hint-active ' : ''
             var apply = EMPTY
             if (board[i][j].isFlagged) apply = FLAG
             if (cellState) {
@@ -60,10 +60,6 @@ function changeSize(val) {
             break;
     }
     resetGame()
-    // //model
-    // gBoard = creatBoard(gSize, gSize);
-    // //DOM
-    // renderBoard(gBoard)
 }
 
 function HTMLSyringe(count, strHTML) {

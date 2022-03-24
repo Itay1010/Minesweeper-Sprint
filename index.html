@@ -17,7 +17,7 @@
     </div>
     <div class="container">
         <div class="top-bar">
-            <div class="life">❤❤❤</div>
+            <div class="life">lives: <span>❤❤❤</span></div>
             <input onmouseup="changeSize(value)" type="radio" name="difficulty" value="4"> Easy
             <input onmouseup="changeSize(value)" type="radio" name="difficulty" value="8" checked> Medium
             <input onmouseup="changeSize(value)" type="radio" name="difficulty" value="12"> Hard
@@ -26,7 +26,7 @@
             </div>
             <div class="timer">000</div>
         </div>
-        <div class="hints" onmouseup="hintActive()">💡X3</div>
+        <div class="hints" onmouseup="hintActive()">💡X<span>3</span></div>
         <table>
         </table>
     </div>
@@ -36,6 +36,7 @@
 <script src="js/main.js"></script>
 <script src="js/mines.js"></script>
 <script src="js/utils.js"></script>
+<script src="js/hint.js"></script>
 <script src="js/smaily.js"></script>
 
 </html>
