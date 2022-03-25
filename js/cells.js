@@ -6,7 +6,6 @@ function cellClicked(el, ev, i, j) {
     else if (gBoard[i][j].isDisplayed || !gGame.isOn) return
     if (gHintActive) {
         revealAround(i, j)
-        checkVictory(false, i, j, el)
     }
     else if (ev.button === 0 && !gBoard[i][j].isFlagged) {
         if (checkVictory(false, i, j, el)) return;
@@ -14,7 +13,7 @@ function cellClicked(el, ev, i, j) {
     }
     else if (ev.button === 2) {
         flagCell(i, j);
-        if (checkVictory(true, i, j, el)) return;
+        checkVictory(true, i, j, el);
     }
     //DOM
     renderBoard(gBoard)
@@ -26,7 +25,7 @@ function revealCell(i, j) {
     var modelCell = gBoard[i][j]
     modelCell.isDisplayed = true;
     if (checkFlagging(i, j)) gGame.markedCount++
-    else if (!modelCell.isMine)gGame.visibleCells++;
+    else if (!modelCell.isMine) gGame.visibleCells++;
 }
 
 function recursiveReveal(mat, rowIdx, colIdx, el) {
@@ -56,17 +55,17 @@ function recursiveReveal(mat, rowIdx, colIdx, el) {
 function flagCell(i, j) {
     //just for the model
     var modelCell = gBoard[i][j]
-    if (modelCell.isFlagged) {
+    if (!modelCell.isFlagged) {
+        modelCell.isFlagged = true;
+        if (modelCell.isMine) {
+            gGame.markedCount++
+        }
+    } else {
+        modelCell.isFlagged = false;
         if (modelCell.isMine) {
             gGame.markedCount--
         }
-        modelCell.isFlagged = false;
-        return
-    } else if (modelCell.isMine) {
-        gGame.markedCount++
-        return
     }
-    modelCell.isFlagged = true;
 }
 
 function checkFlagging(idxI, idxJ) {

@@ -21,7 +21,6 @@ function init() {
     gBoard = creatBoard(gSize, gSize);
     gElTimer = document.querySelector('.timer')
     renderBoard(gBoard)
-    if (localStorage.getItem('bestScore') === null) localStorage.setItem('bestScore', '99999999999')
 }
 
 function startGame(i, j) {
@@ -29,6 +28,12 @@ function startGame(i, j) {
     placeMines(gBoard, i, j)
     setMinesCount(gBoard)
     timerSet()
+}
+
+function stopGame() {
+    clearInterval(gTimerId);
+    gTimerId = null;
+    renderBoard(gBoard);
 }
 
 function timerSet() {
@@ -66,11 +71,8 @@ function victory() {
     })
     victoryFace()
     openModal(true);
-    clearInterval(gTimerId);
-    gTimerId = null;
-    renderBoard(gBoard);
-
-
+    stopGame()
+    
 }
 
 function lose() {
@@ -78,11 +80,10 @@ function lose() {
     gGame.mineLocation.forEach(function (currVal) {
         gBoard[currVal.i][currVal.j].isDisplayed = true
     })
-    renderBoard(gBoard);
     loseFace()
     openModal(false);
-    clearInterval(gTimerId);
-    gTimerId = null;
+    stopGame()
+    
 }
 
 function loseLife(el) {
@@ -109,16 +110,20 @@ function loseLife(el) {
 
 function resetGame() {
     clearInterval(gTimerId)
+    var elTopBar = document.querySelector('.top-bar')
     gTimerId = null;
     gGame.isOn = false;
     gGame.lifeCounter = 3;
     gGame.markedCount = 0;
     gGame.mineLocation = [];
     gGame.visibleCells = 0;
-    document.querySelector('.timer').innerText = '000'
-    document.querySelector('.life span').innerText = '❤❤❤'
-    // document.querySelector('input[value="8"]').checked = 'checked'
-    document.querySelector('.face').innerText = '🙂'
+    elTopBar.querySelector('.timer').innerText = '000'
+    elTopBar.querySelector('.life span').innerText = '❤❤❤'
+    elTopBar.querySelector('.face').innerText = '🙂'
+    elTopBar.querySelectorAll('.hints button').forEach((el) => {
+        el.innerHTML = '<img src="./img/lightbulb-on.png" alt=""></img>'
+        el.disabled = false
+    })
 
     if (gIsModalOpen) closeModal()
     init()

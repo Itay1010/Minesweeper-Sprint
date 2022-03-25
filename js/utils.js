@@ -101,3 +101,7 @@ function shuffle(items) {
     }
     return items;
 }
+
+function storeBestScore() {
+    
+}
