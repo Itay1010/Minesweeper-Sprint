@@ -22,7 +22,6 @@ function countMines(mat, rowIdx, colIdx) {
         for (var j = colIdx - 1; j <= colIdx + 1; j++) {
             if (j < 0 || j > mat[0].length - 1) continue
             if (i === rowIdx && j === colIdx) continue
-            // console.log('j:', j)
             var cell = mat[i][j]
             if (cell.isMine) {
                 mines++

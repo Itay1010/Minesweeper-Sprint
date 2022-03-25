@@ -18,7 +18,7 @@ function cellClicked(el, ev, i, j) {
         flagCell(i, j);
         checkClick(true, i, j, el);
         renderBoard(gBoard);
-    }    
+    }
 }
 
 function revealCell(i, j) {
@@ -75,3 +75,14 @@ function checkFlagging(idxI, idxJ) {
         if (currMine.i === idxI && currMine.j === idxJ) return true
     }
 }
+
+function safeClick(elBtn) {
+    if (gGame.safeCounter === 0) return
+    var randCell = getRandCell(gBoard, 0, 0)
+    var elCell = document.querySelector(`.cell[data-i="${randCell.i}"][data-j="${randCell.j}"]`)
+    elCell.innerText = SAFE
+    setTimeout(() => {elCell.innerText = EMPTY}, 1000)
+    gGame.safeCounter--
+    if(gGame.safeCounter === 0) elBtn.classList.remove = 'active'
+
+} 

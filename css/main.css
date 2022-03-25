@@ -24,7 +24,7 @@ h1 {
     background-origin: border-box;
     background-repeat: no-repeat;
     width: 450px;
-    height: 160px;
+    height: 171px;
     margin: auto;
     margin-bottom: 0px;
     margin-top: 40px;
@@ -57,6 +57,23 @@ h1 {
     margin: auto;
     margin-bottom: -2px;
     background-color: #3096be;
+}
+
+.safe-click {
+    transition: 0.2s;
+    display: inline-block;
+    position: relative;
+    background-color: #dc8b36;
+    border-radius: 10%;
+    width: 60px;
+    height: 36px;
+    margin-right: -69px;
+    left: -16px;
+    bottom: 67px;
+}
+
+.safe-click.active:hover {
+    box-shadow: 0px 0px 20px 6px #dc8b36c2;
 }
 
 .life {

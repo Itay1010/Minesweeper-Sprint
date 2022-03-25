@@ -68,7 +68,7 @@ function getRandCell(board, skipI, skipJ) {
             if (i === skipI && j === skipJ) {
                 continue
             }
-            else if (!board[i][j].isMine) {
+            else if (!board[i][j].isMine || !board[i][j].isFlagged) {
                 res.push({ i, j })
             }
         }
@@ -118,9 +118,7 @@ function timerSet() {
 function storeBestScore() {
     var newTime = new Date - gBestTime
     var storage = localStorage.getItem(`bestScore${gSize}`)
-    console.log('storage', +storage)
     if (newTime < +storage || storage === 'No Score') {
-        console.log('newTime', newTime)
         localStorage.setItem(`bestScore${gSize}`, newTime)
     }
 }

@@ -3,16 +3,10 @@
 const EMPTY = ' ';
 const MINE = '💣';
 const FLAG = '🚩';
+const SAFE = '❎';
 
-var gGame = {
-    isOn: false,
-    mineLocation: [],
-    visibleCells: 0,
-    markedCount: 0,
-    lifeCounter: 3,
-    hintCounter: 3
-}
-var gBoard, gBestTime, gTimerId, gElTimer, gHintActive;
+
+var gGame, gBoard, gBestTime, gTimerId, gElTimer, gHintActive;
 var gSize = 8;
 var gIsModalOpen = false
 
@@ -23,6 +17,18 @@ function init() {
     renderBoard(gBoard)
     displayBestScore()
 
+}
+
+function setGlobalGame() {
+    gGame = {
+        isOn: false,
+        mineLocation: [],
+        visibleCells: 0,
+        markedCount: 0,
+        lifeCounter: 3,
+        hintCounter: 3,
+        safeCounter: 3
+    }
 }
 
 function startGame(i, j) {
@@ -41,7 +47,6 @@ function stopGame() {
 
 
 function checkClick(flagging, i, j, el) {
-    console.log('checking');
     if (gGame.markedCount === gGame.mineLocation.length &&
         gGame.visibleCells === (gSize ** 2) - gGame.markedCount
     ) {
@@ -81,7 +86,6 @@ function lose() {
 function loseLife(el) {
     var elLife = document.querySelector('.life span')
     var elCell = el
-    console.log('elCell', elCell)
     gGame.lifeCounter--
     gGame.markedCount++
     elCell.classList.add('flicker')
@@ -106,11 +110,7 @@ function resetGame() {
     clearInterval(gTimerId)
     var elTopBar = document.querySelector('.top-bar')
     gTimerId = null;
-    gGame.isOn = false;
-    gGame.lifeCounter = 3;
-    gGame.markedCount = 0;
-    gGame.mineLocation = [];
-    gGame.visibleCells = 0;
+    setGlobalGame()
     displayBestScore()
     elTopBar.querySelector('.timer span').innerText = '000'
     elTopBar.querySelector('.life span').innerText = '❤❤❤'

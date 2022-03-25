@@ -10,7 +10,6 @@ function hintActive(el) {
 }
 
 function hintOff(coords) {
-    console.log('localElHint', localElHint)
     localElHint.disabled = true
     localElHint.querySelector('img').src = './img/lightbulb-off.png'
     gGame.hintCounter--
