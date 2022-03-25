@@ -1,6 +1,5 @@
 'use strict'
 
-
 function creatBoard(sizeX, sizeY) {
     var board = [];
     for (var i = 0; i < sizeX; i++) {
@@ -103,5 +102,12 @@ function shuffle(items) {
 }
 
 function storeBestScore() {
-    
+    gTime = new Date - gTime
+    if (gTime < +localStorage.getItem(`bestScore${gSize}`)) {
+        localStorage.setItem(`bestScore${gSize}`, '' + gTime)
+    }
+}
+
+function displayBestScore() {
+
 }

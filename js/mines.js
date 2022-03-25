@@ -1,8 +1,6 @@
 'use strict'
 
 
-
-
 function placeMines(board, cellI, cellJ) {
     var minesCount = 12
     if (gSize === 4) minesCount = 2

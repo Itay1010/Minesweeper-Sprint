@@ -12,7 +12,7 @@ var gGame = {
     lifeCounter: 3,
     hintCounter: 3
 }
-var gBoard, gTimerId, gElTimer, gHintActive;
+var gBoard, gTime, gTimerId, gElTimer, gHintActive;
 var gSize = 8;
 var gIsModalOpen = false
 
@@ -21,6 +21,9 @@ function init() {
     gBoard = creatBoard(gSize, gSize);
     gElTimer = document.querySelector('.timer')
     renderBoard(gBoard)
+    if (localStorage.getItem(`bestScore${gSize}`) === null) localStorage.setItem(`bestScore${gSize}`, '99999999999')
+    displayBestScore()
+
 }
 
 function startGame(i, j) {
@@ -34,10 +37,12 @@ function stopGame() {
     clearInterval(gTimerId);
     gTimerId = null;
     renderBoard(gBoard);
+
 }
 
 function timerSet() {
-    var timerStart = new Date
+    var timerStart = new Date;
+    gTime = timerStart;
     gTimerId = setInterval(cycleTimer, 1000, timerStart);
 }
 
@@ -47,24 +52,26 @@ function cycleTimer(startT) {
     gElTimer.innerText = currTime > 9 ? '0' : '00'
     gElTimer.innerText = currTime > 99 ? '' : '00'
     gElTimer.innerText += currTime
-
 }
 
-function checkVictory(flagging, i, j, el) {
+function checkClick(flagging, i, j, el) {
+    console.log('checking');
     if (gGame.markedCount === gGame.mineLocation.length &&
         gGame.visibleCells === (gSize ** 2) - gGame.markedCount
     ) {
         victory();
-        return true
+        return false
     }
     else if (!flagging && gBoard[i][j].isMine) {
         loseLife(el, i, j);
-        checkVictory(true, i, j, el)
-        return true
+        return false
+        // checkVictory(true, i, j, el)
     }
+    return true
 }
 
 function victory() {
+    storeBestScore()
     gGame.isOn = false;
     gGame.mineLocation.forEach(function (currVal) {
         gBoard[currVal.i][currVal.j].isDisplayed = true;
@@ -72,7 +79,6 @@ function victory() {
     victoryFace()
     openModal(true);
     stopGame()
-    
 }
 
 function lose() {
@@ -83,29 +89,31 @@ function lose() {
     loseFace()
     openModal(false);
     stopGame()
-    
+
 }
 
 function loseLife(el) {
     var elLife = document.querySelector('.life span')
     var elCell = el
+    console.log('elCell', elCell)
     gGame.lifeCounter--
     gGame.markedCount++
-    if (gGame.lifeCounter === 0) {
-        lose();
-    }
-    else {
-        elCell.classList.add('flicker')
-        elCell.innerText = MINE
-        revealCell(+elCell.dataset.i, +elCell.dataset.j)
-        setTimeout(function () {
-            elCell.classList.remove('flicker')
-            renderBoard(gBoard)
-        }, 2500);
-    }
+    elCell.classList.add('flicker')
+    elCell.innerText = MINE
+    revealCell(+elCell.dataset.i, +elCell.dataset.j)
+    setTimeout(function () {
+        elCell.classList.remove('flicker')
+        renderBoard(gBoard)
+    }, 2500);
+
     var strHTML = HTMLSyringe(gGame.lifeCounter, '❤');
     elLife.innerText = strHTML;
-    return
+    if (gGame.lifeCounter === 0) lose();
+    if (gGame.markedCount === gGame.mineLocation.length &&
+        gGame.visibleCells === (gSize ** 2) - gGame.markedCount
+    ) {
+        victory();
+    }
 }
 
 function resetGame() {
@@ -146,5 +154,3 @@ function closeModal() {
     elModal.style.display = 'none';
     setTimeout(() => { elModal.style.opacity = '0%' }, 10)
 }
-
-

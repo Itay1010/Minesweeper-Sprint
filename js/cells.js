@@ -1,22 +1,24 @@
 'use strict'
 
-
 function cellClicked(el, ev, i, j) {
+    //a VARY messy function, be gentle with it or it'll break the game!
     if (!gGame.visibleCells && ev.button === 0 && !gGame.markedCount) startGame(i, j)
     else if (gBoard[i][j].isDisplayed || !gGame.isOn) return
     if (gHintActive) {
         revealAround(i, j)
     }
     else if (ev.button === 0 && !gBoard[i][j].isFlagged) {
-        if (checkVictory(false, i, j, el)) return;
-        recursiveReveal(gBoard, i, j, el);
+        if (checkClick(false, i, j, el)) {
+            recursiveReveal(gBoard, i, j);
+            checkClick(false, i, j, el)
+            renderBoard(gBoard);
+        }
     }
     else if (ev.button === 2) {
         flagCell(i, j);
-        checkVictory(true, i, j, el);
-    }
-    //DOM
-    renderBoard(gBoard)
+        checkClick(true, i, j, el);
+        renderBoard(gBoard);
+    }    
 }
 
 function revealCell(i, j) {
@@ -28,7 +30,7 @@ function revealCell(i, j) {
     else if (!modelCell.isMine) gGame.visibleCells++;
 }
 
-function recursiveReveal(mat, rowIdx, colIdx, el) {
+function recursiveReveal(mat, rowIdx, colIdx) {
     var middleCell = mat[rowIdx][colIdx]
     revealCell(rowIdx, colIdx)
     if (middleCell.minesAround !== 0) {
@@ -48,7 +50,6 @@ function recursiveReveal(mat, rowIdx, colIdx, el) {
         }
     }
     renderBoard(gBoard)
-    checkVictory(false, rowIdx, colIdx, el)
     return
 }
 
@@ -71,7 +72,6 @@ function flagCell(i, j) {
 function checkFlagging(idxI, idxJ) {
     for (var i = 0; i > gGame.mineLocation; i++) {
         currMine = gGame.mineLocation[i]
-        console.log('currMine', currMine)
         if (currMine.i === idxI && currMine.j === idxJ) return true
     }
 }
