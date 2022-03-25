@@ -6,9 +6,11 @@
 }
 
 body {
-    background-image: url(../img/background.gif);
+    background-image: url(../img/background2.jpg);
     background-size: cover;
     background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: scroll;
 }
 
 h1 {
@@ -118,7 +120,7 @@ input[name="difficulty"] {
     vertical-align: middle;
 }
 
-.hints img{
+.hints img {
     width: 150%;
 }
 

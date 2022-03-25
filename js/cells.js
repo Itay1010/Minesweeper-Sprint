@@ -2,7 +2,7 @@
 
 
 function cellClicked(el, ev, i, j) {
-    if (gGame.visibleCells === 0 && ev.button === 0) startGame(i, j)
+    if (!gGame.visibleCells && ev.button === 0 && !gGame.markedCount) startGame(i, j)
     else if (gBoard[i][j].isDisplayed || !gGame.isOn) return
     if (gHintActive) {
         revealAround(i, j)
@@ -24,8 +24,9 @@ function revealCell(i, j) {
     //just for the model
     //is being used to reveal all mines in both win and lose states
     var modelCell = gBoard[i][j]
-    modelCell.isDisplayed = true
-    if (!gHintActive) gGame.visibleCells++
+    modelCell.isDisplayed = true;
+    if (checkFlagging(i, j)) gGame.markedCount++
+    else if (!modelCell.isMine)gGame.visibleCells++;
 }
 
 function recursiveReveal(mat, rowIdx, colIdx, el) {
@@ -56,10 +57,20 @@ function flagCell(i, j) {
     //just for the model
     var modelCell = gBoard[i][j]
     if (modelCell.isFlagged) {
-        if (modelCell.isMine) gGame.markedCount--
+        if (modelCell.isMine) {
+            gGame.markedCount--
+        }
         modelCell.isFlagged = false;
-        return
-    } else if (modelCell.isMine) gGame.markedCount++
-    modelCell.isFlagged = true;
+    } else if (modelCell.isMine) {
+        gGame.markedCount++
+        modelCell.isFlagged = true;
+    }
 }
 
+function checkFlagging(idxI, idxJ) {
+    for (var i = 0; i > gGame.mineLocation; i++) {
+        currMine = gGame.mineLocation[i]
+        console.log('currMine', currMine)
+        if (currMine.i === idxI && currMine.j === idxJ) return true
+    }
+}

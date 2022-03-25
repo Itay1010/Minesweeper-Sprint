@@ -10,8 +10,7 @@ var gGame = {
     visibleCells: 0,
     markedCount: 0,
     lifeCounter: 3,
-    hintCounter: 3,
-    mistakes: 0
+    hintCounter: 3
 }
 var gBoard, gTimerId, gElTimer, gHintActive;
 var gSize = 8;
@@ -22,7 +21,7 @@ function init() {
     gBoard = creatBoard(gSize, gSize);
     gElTimer = document.querySelector('.timer')
     renderBoard(gBoard)
-    if(localStorage.getItem('bestScore') === null) localStorage.setItem('bestScore', '99999999999')
+    if (localStorage.getItem('bestScore') === null) localStorage.setItem('bestScore', '99999999999')
 }
 
 function startGame(i, j) {
@@ -48,7 +47,7 @@ function cycleTimer(startT) {
 
 function checkVictory(flagging, i, j, el) {
     if (gGame.markedCount === gGame.mineLocation.length &&
-        (gGame.visibleCells) === (gSize ** 2) - gGame.mineLocation.length
+        gGame.visibleCells === (gSize ** 2) - gGame.markedCount
     ) {
         victory();
         return true
@@ -91,7 +90,6 @@ function loseLife(el) {
     var elCell = el
     gGame.lifeCounter--
     gGame.markedCount++
-    gGame.mistakes++
     if (gGame.lifeCounter === 0) {
         lose();
     }

@@ -4,7 +4,7 @@ let localElHint;
 
 function hintActive(el) {
     localElHint = el
-    if (gGame.hintCounter === 0) return
+    if (gGame.hintCounter === 0 || !gGame.isOn) return
     gHintActive = true
     renderBoard(gBoard)
 }
@@ -31,6 +31,7 @@ function revealAround(rowIdx, colIdx) {
         if (i < 0 || i > gBoard.length - 1) continue
         for (var j = colIdx - 1; j <= colIdx + 1; j++) {
             if (j < 0 || j > gBoard[0].length - 1) continue
+            if (gBoard[i][j].isDisplayed) continue
             coords.push([i, j])
         }
     }
