@@ -101,13 +101,40 @@ function shuffle(items) {
     return items;
 }
 
+function cycleTimer(startT) {
+    var currTime = (+Date.now() - +startT) / 1000
+    currTime = currTime.toFixed(0)
+    gElTimer.innerText = currTime > 9 ? '0' : '00'
+    gElTimer.innerText = currTime > 99 ? '' : '00'
+    gElTimer.innerText += currTime
+}
+
+function timerSet() {
+    var timerStart = new Date;
+    gBestTime = timerStart;
+    gTimerId = setInterval(cycleTimer, 1000, timerStart);
+}
+
 function storeBestScore() {
-    gTime = new Date - gTime
-    if (gTime < +localStorage.getItem(`bestScore${gSize}`)) {
-        localStorage.setItem(`bestScore${gSize}`, '' + gTime)
+    var newTime = new Date - gBestTime
+    var storage = localStorage.getItem(`bestScore${gSize}`)
+    console.log('storage', +storage)
+    if (newTime < +storage || storage === 'No Score') {
+        console.log('newTime', newTime)
+        localStorage.setItem(`bestScore${gSize}`, newTime)
     }
 }
 
 function displayBestScore() {
+    var storage = localStorage.getItem(`bestScore${gSize}`)
+    var newTime = +storage / 1000
+    if (storage === null || isNaN(storage)) {
+        localStorage.setItem(`bestScore${gSize}`, 'No Score')
+        storage = localStorage.getItem(`bestScore${gSize}`)
+        document.querySelector('.best-time span').innerText = storage
 
+    }
+    else {
+        document.querySelector('.best-time span').innerText = newTime.toFixed(2) + 's'
+    }
 }

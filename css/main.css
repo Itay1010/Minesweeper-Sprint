@@ -24,7 +24,7 @@ h1 {
     background-origin: border-box;
     background-repeat: no-repeat;
     width: 450px;
-    height: 28px;
+    height: 160px;
     margin: auto;
     margin-bottom: 0px;
     margin-top: 40px;
@@ -53,7 +53,7 @@ h1 {
 
 .top-bar {
     width: 450px;
-    height: 40px;
+    height: 47px;
     margin: auto;
     margin-bottom: -2px;
     background-color: #3096be;
@@ -62,7 +62,7 @@ h1 {
 .life {
     display: inline-block;
     position: relative;
-    margin-left: -56px;
+    margin-left: -60px;
     margin-right: 3px;
     width: 118px;
     height: 22px;
@@ -73,28 +73,46 @@ h1 {
 }
 
 input[name="difficulty"] {
+    position: relative;
     margin: 20px 1px;
 }
 
 .face {
     display: inline-block;
+    position: relative;
     font-size: larger;
-    margin-left: 10px;
     height: 30px;
     width: 30px;
+    left: -116px;
+    bottom: 31px;
     cursor: pointer;
 }
 
 .timer {
     display: inline-block;
-    position: static;
-    font-size: xx-large;
-    font-family: monospace;
-    height: 30px;
-    width: 60px;
-    margin-left: 10px;
+    position: relative;
+    height: 25px;
+    width: 57px;
+    left: 5px;
+    bottom: 0px;
     background-color: goldenrod;
     border-radius: 10%;
+}
+
+.timer span {
+    font-size: x-large;
+    font-family: monospace;
+}
+
+.best-time {
+    display: inline-block;
+    position: relative;
+    background-color: rgba(241, 127, 34, 0.849);
+    border-radius: 10%;
+    height: 38px;
+    width: 94px;
+    left: 167px;
+    bottom: 79px;
 }
 
 .hints {
@@ -106,7 +124,7 @@ input[name="difficulty"] {
     height: 38px;
     margin-left: -110px;
     bottom: 30px;
-    left: 82px;
+    left: 66px;
 }
 
 .hints button {
