@@ -17,6 +17,11 @@
     </div>
     <div class="container">
         <div class="top-bar">
+            <div class="hints" >
+                <button class="hint1" onmouseup="hintActive(this)"><img src="./img/lightbulb-on.png" alt=""></button>
+                <button class="hint2" onmouseup="hintActive(this)"><img src="./img/lightbulb-on.png" alt=""></button>
+                <button class="hint3" onmouseup="hintActive(this)"><img src="./img/lightbulb-on.png" alt=""></button>
+            </div>
             <div class="life">lives: <span>❤❤❤</span></div>
             <input onmouseup="changeSize(value)" type="radio" name="difficulty" value="4"> Easy
             <input onmouseup="changeSize(value)" type="radio" name="difficulty" value="8" checked> Medium
@@ -26,7 +31,6 @@
             </div>
             <div class="timer">000</div>
         </div>
-        <div class="hints" onmouseup="hintActive()">💡X<span>3</span></div>
         <table>
         </table>
     </div>
@@ -34,6 +38,7 @@
 
 <footer style="color: blueviolet;">CoffeeRight © Itay Zonshine 2022</footer>
 <script src="js/main.js"></script>
+<script src="js/cells.js"></script>
 <script src="js/mines.js"></script>
 <script src="js/utils.js"></script>
 <script src="js/hint.js"></script>

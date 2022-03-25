@@ -62,20 +62,6 @@ function changeSize(val) {
     resetGame()
 }
 
-function HTMLSyringe(count, strHTML) {
-    var serum = ''
-    for (var i = 0; i < count; i++) {
-        serum += strHTML
-    }
-    return serum
-}
-
-function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
-}
-
 function getRandCell(board, skipI, skipJ) {
     var res = []
     for (var i = 0; i < board.length; i++) {
@@ -89,6 +75,20 @@ function getRandCell(board, skipI, skipJ) {
         }
     }
     return res[getRandomInt(0, res.length)]
+}
+
+function HTMLSyringe(count, strHTML) {
+    var serum = ''
+    for (var i = 0; i < count; i++) {
+        serum += strHTML
+    }
+    return serum
+}
+
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
 }
 
 function shuffle(items) {
