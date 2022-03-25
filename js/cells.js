@@ -61,10 +61,12 @@ function flagCell(i, j) {
             gGame.markedCount--
         }
         modelCell.isFlagged = false;
+        return
     } else if (modelCell.isMine) {
         gGame.markedCount++
-        modelCell.isFlagged = true;
+        return
     }
+    modelCell.isFlagged = true;
 }
 
 function checkFlagging(idxI, idxJ) {

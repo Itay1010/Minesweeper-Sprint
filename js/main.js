@@ -53,7 +53,7 @@ function checkVictory(flagging, i, j, el) {
         return true
     }
     else if (!flagging && gBoard[i][j].isMine) {
-        loseLife(el);
+        loseLife(el, i, j);
         checkVictory(true, i, j, el)
         return true
     }
@@ -104,6 +104,7 @@ function loseLife(el) {
     }
     var strHTML = HTMLSyringe(gGame.lifeCounter, '❤');
     elLife.innerText = strHTML;
+    return
 }
 
 function resetGame() {
