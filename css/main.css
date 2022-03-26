@@ -36,7 +36,8 @@ h1 {
     display: none;
     opacity: 0%;
     transition: 1s ease-in-out;
-    background-color: #74B2F4;
+    /* background-color: #74B2F4; */
+    background-color: none;
     font-size: xx-large;
     left: 40%;
     top: 40%;
@@ -53,10 +54,36 @@ h1 {
 
 .top-bar {
     width: 450px;
-    height: 47px;
+    height: 65px;
     margin: auto;
     margin-bottom: -2px;
     background-color: #3096be;
+}
+
+.boom {
+    transition: 0.3s;
+    font-size: small;
+    display: inline-block;
+    position: relative;
+    background-color: #dc8b36;
+    border: none;
+    border-radius: 2%;
+    margin: -43px;
+    height: 28px;
+    width: 68px;
+    left: 81px;
+    bottom: 34px;
+    cursor: pointer;
+}
+
+.boom:hover {
+    background-color: #e34c7b;
+    border-radius: 10%;
+}
+
+.boom:disabled{
+    background-color: #993857;
+    cursor:not-allowed;
 }
 
 .safe-click {
@@ -69,7 +96,7 @@ h1 {
     height: 36px;
     margin-right: -69px;
     left: -16px;
-    bottom: 67px;
+    bottom: 26px;
 }
 
 .safe-click.active:hover {
@@ -79,8 +106,7 @@ h1 {
 .life {
     display: inline-block;
     position: relative;
-    margin-left: -60px;
-    margin-right: 3px;
+    margin-left: -55px;
     width: 118px;
     height: 22px;
 }
@@ -91,8 +117,13 @@ h1 {
 
 input[name="difficulty"] {
     position: relative;
-    margin: 20px 1px;
 }
+
+.ininput-difficulty {
+    font-size: small;
+    margin-bottom: 0px;
+}
+
 
 .face {
     display: inline-block;
@@ -100,7 +131,7 @@ input[name="difficulty"] {
     font-size: larger;
     height: 30px;
     width: 30px;
-    left: -116px;
+    left: -123px;
     bottom: 31px;
     cursor: pointer;
 }
@@ -109,8 +140,8 @@ input[name="difficulty"] {
     display: inline-block;
     position: relative;
     height: 25px;
-    width: 57px;
-    left: 5px;
+    width: 66px;
+    left: 0px;
     bottom: 0px;
     background-color: goldenrod;
     border-radius: 10%;
@@ -124,12 +155,14 @@ input[name="difficulty"] {
 .best-time {
     display: inline-block;
     position: relative;
+    font-size: small;
     background-color: rgba(241, 127, 34, 0.849);
     border-radius: 10%;
-    height: 38px;
-    width: 94px;
-    left: 167px;
-    bottom: 79px;
+    margin-left: -106px;
+    height: 33px;
+    width: 72px;
+    left: 30px;
+    bottom: 27px;
 }
 
 .hints {
@@ -140,8 +173,8 @@ input[name="difficulty"] {
     width: 136px;
     height: 38px;
     margin-left: -110px;
-    bottom: 30px;
-    left: 66px;
+    bottom: 72px;
+    left: 75px;
 }
 
 .hints button {
@@ -173,6 +206,44 @@ input[name="difficulty"] {
     border: inset #dbc3bd;
 }
 
+.mines-left {
+    display: block;
+    position: relative;
+    font-size: small;
+    font-family: cursive;
+    border: none;
+    border-radius: 10%;
+    background-color: none;
+    color: #dc8b36;
+    width: 52px;
+    height: 74px;
+    left: 212px;
+    bottom: 90px;
+    margin: 0px;
+    margin-left: 82px;
+    margin-bottom: 55px;
+}
+
+.mines-left span {
+    color: transparent;
+}
+
+.manual {
+    transition: 0.5s;
+    font-size: small;
+    font-family: cursive;
+    border: none;
+    border-radius: 10%;
+    background-color: inherit;
+    color: #dc8b36;
+    width: 52px;
+}
+
+.manual:hover {
+    background-color: #dc8b36;
+    color: black;
+}
+
 table {
     width: 450px;
     height: 550px;
@@ -184,6 +255,10 @@ table {
     font-size: 1rem;
     table-layout: fixed;
     /* background-color: green; */
+}
+
+.placing-mines {
+    cursor: cell;
 }
 
 tr {

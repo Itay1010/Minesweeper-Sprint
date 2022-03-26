@@ -6,9 +6,19 @@ const FLAG = '🚩';
 const SAFE = '❎';
 
 
-var gGame, gBoard, gBestTime, gTimerId, gElTimer, gHintActive;
+var gBoard, gBestTime, gTimerId, gElTimer, gHintActive;
 var gSize = 8;
 var gIsModalOpen = false
+var gGame = {
+    isOn: false,
+    mineLocation: [],
+    visibleCells: 0,
+    markedCount: 0,
+    lifeCounter: 3,
+    hintCounter: 3,
+    safeCounter: 3,
+    isBoom: false
+}
 
 function init() {
     gHintActive = false
@@ -19,20 +29,22 @@ function init() {
 
 }
 
-function setGlobalGame() {
-    gGame = {
-        isOn: false,
-        mineLocation: [],
-        visibleCells: 0,
-        markedCount: 0,
-        lifeCounter: 3,
-        hintCounter: 3,
-        safeCounter: 3
-    }
-}
 
 function startGame(i, j) {
     gGame.isOn = true
+    if (gGame.isBoom) {
+        gGame.isBoom = false
+        setMinesCount(gBoard)
+        timerSet()
+        return
+    } else if (gManualMine.isOn) {
+        manuelSetOff()
+        gManualMine.secondPhase = true
+        gManualMine.isOn = false
+        setMinesCount(gBoard)
+        timerSet()
+        return
+    }
     placeMines(gBoard, i, j)
     setMinesCount(gBoard)
     timerSet()
@@ -41,6 +53,7 @@ function startGame(i, j) {
 function stopGame() {
     clearInterval(gTimerId);
     gTimerId = null;
+    gGame.isOn = false
     renderBoard(gBoard);
 
 }
@@ -107,14 +120,20 @@ function loseLife(el) {
 }
 
 function resetGame() {
-    clearInterval(gTimerId)
     var elTopBar = document.querySelector('.top-bar')
+    clearInterval(gTimerId)
     gTimerId = null;
-    setGlobalGame()
-    displayBestScore()
+    gGame.mineLocation = [];
+    gGame.visibleCells = 0;
+    gGame.markedCount = 0;
+    gGame.lifeCounter = 3;
+    gGame.hintCounter = 3;
+    gGame.safeCounter = 3;
+    displayBestScore();
     elTopBar.querySelector('.timer span').innerText = '000'
     elTopBar.querySelector('.life span').innerText = '❤❤❤'
     elTopBar.querySelector('.face').innerText = '🙂'
+    document.querySelector('.boom').disabled = false
     elTopBar.querySelectorAll('.hints button').forEach((el) => {
         el.innerHTML = '<img src="./img/lightbulb-on.png" alt=""></img>'
         el.disabled = false

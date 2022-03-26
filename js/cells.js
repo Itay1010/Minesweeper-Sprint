@@ -2,22 +2,26 @@
 
 function cellClicked(el, ev, i, j) {
     //a VARY messy function, be gentle with it or it'll break the game!
-    if (!gGame.visibleCells && ev.button === 0 && !gGame.markedCount) startGame(i, j)
-    else if (gBoard[i][j].isDisplayed || !gGame.isOn) return
-    if (gHintActive) {
-        revealAround(i, j)
-    }
-    else if (ev.button === 0 && !gBoard[i][j].isFlagged) {
-        if (checkClick(false, i, j, el)) {
-            recursiveReveal(gBoard, i, j);
-            checkClick(false, i, j, el)
+    if (!gManualMine.isOn) {
+        if (!gGame.visibleCells && ev.button === 0 && !gGame.markedCount && !gManualMine.secondPhase) startGame(i, j)
+        else if (gBoard[i][j].isDisplayed || !gGame.isOn) return
+        if (gHintActive) {
+            revealAround(i, j)
+        }
+        else if (ev.button === 0 && !gBoard[i][j].isFlagged) {
+            if (checkClick(false, i, j, el)) {
+                recursiveReveal(gBoard, i, j);
+                checkClick(false, i, j, el)
+                renderBoard(gBoard);
+            }
+        }
+        else if (ev.button === 2) {
+            flagCell(i, j);
+            checkClick(true, i, j, el);
             renderBoard(gBoard);
         }
-    }
-    else if (ev.button === 2) {
-        flagCell(i, j);
-        checkClick(true, i, j, el);
-        renderBoard(gBoard);
+    } else {
+        placeMines(gGame, i, j, el)
     }
 }
 
@@ -81,8 +85,8 @@ function safeClick(elBtn) {
     var randCell = getRandCell(gBoard, 0, 0)
     var elCell = document.querySelector(`.cell[data-i="${randCell.i}"][data-j="${randCell.j}"]`)
     elCell.innerText = SAFE
-    setTimeout(() => {elCell.innerText = EMPTY}, 1000)
+    setTimeout(() => { elCell.innerText = EMPTY }, 1000)
     gGame.safeCounter--
-    if(gGame.safeCounter === 0) elBtn.classList.remove = 'active'
+    if (gGame.safeCounter === 0) elBtn.classList.remove = 'active'
 
 } 

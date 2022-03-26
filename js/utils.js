@@ -58,7 +58,16 @@ function changeSize(val) {
             gSize = 8
             break;
     }
+    gGame.gIsBoom = false
     resetGame()
+}
+
+function HTMLSyringe(count, strHTML) {
+    var serum = ''
+    for (var i = 0; i < count; i++) {
+        serum += strHTML
+    }
+    return serum
 }
 
 function getRandCell(board, skipI, skipJ) {
@@ -68,20 +77,12 @@ function getRandCell(board, skipI, skipJ) {
             if (i === skipI && j === skipJ) {
                 continue
             }
-            else if (!board[i][j].isMine || !board[i][j].isFlagged) {
+            else if (!board[i][j].isMine || !board[i][j].isFlagged || !board[i][j].isDisplayed) {
                 res.push({ i, j })
             }
         }
     }
     return res[getRandomInt(0, res.length)]
-}
-
-function HTMLSyringe(count, strHTML) {
-    var serum = ''
-    for (var i = 0; i < count; i++) {
-        serum += strHTML
-    }
-    return serum
 }
 
 function getRandomInt(min, max) {
@@ -130,7 +131,6 @@ function displayBestScore() {
         localStorage.setItem(`bestScore${gSize}`, 'No Score')
         storage = localStorage.getItem(`bestScore${gSize}`)
         document.querySelector('.best-time span').innerText = storage
-
     }
     else {
         document.querySelector('.best-time span').innerText = newTime.toFixed(2) + 's'
