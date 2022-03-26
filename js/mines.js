@@ -1,6 +1,6 @@
 'use strict'
 
-let lElManualMineBtn;
+var gElManualMineBtn;
 
 var gManualMine = {
     isOn: false,
@@ -76,7 +76,7 @@ function boom(elBtn) {
 
 function manuelSetOn(el) {
     var elMinesos = document.querySelector('.mines-left span')
-    lElManualMineBtn = el
+    gElManualMineBtn = el
     gManualMine.isOn = true
     document.querySelector('table').classList.add('placing-mines')
     elMinesos.style.color = 'inherit'
@@ -87,11 +87,10 @@ function manuelSetOff() {
     document.querySelector('.placing-mines').classList.remove('placing-mines')
     var elMinesos = document.querySelector('.mines-left span')
     elMinesos.style.color = 'transparent'
-    lElManualMineBtn.disabled = true
+    gElManualMineBtn.disabled = true
 }
 
 function placed(cellI, cellJ, elCell) {
     document.querySelector('.mines-left span').innerText = `X${gManualMine.minesLeft}`
     elCell.innerText = MINE
-    lElManualMineBtn
 }

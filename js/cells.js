@@ -2,6 +2,7 @@
 
 function cellClicked(el, ev, i, j) {
     //a VARY messy function, be gentle with it or it'll break the game!
+    packageRecord()
     if (!gManualMine.isOn) {
         if (!gGame.visibleCells && ev.button === 0 && !gGame.markedCount && !gManualMine.secondPhase) startGame(i, j)
         else if (gBoard[i][j].isDisplayed || !gGame.isOn) return

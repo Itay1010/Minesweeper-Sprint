@@ -53,9 +53,8 @@ function startGame(i, j) {
 function stopGame() {
     clearInterval(gTimerId);
     gTimerId = null;
-    gGame.isOn = false
+    gGame.isOn = false;
     renderBoard(gBoard);
-
 }
 
 
@@ -64,6 +63,7 @@ function checkClick(flagging, i, j, el) {
         gGame.visibleCells === (gSize ** 2) - gGame.markedCount
     ) {
         victory();
+
         return false
     }
     else if (!flagging && gBoard[i][j].isMine) {
@@ -123,6 +123,9 @@ function resetGame() {
     var elTopBar = document.querySelector('.top-bar')
     clearInterval(gTimerId)
     gTimerId = null;
+    gRecord = []
+    gManualMine.secondPhase = false
+    gManualMine.minesLeft = 0
     gGame.mineLocation = [];
     gGame.visibleCells = 0;
     gGame.markedCount = 0;
@@ -130,10 +133,11 @@ function resetGame() {
     gGame.hintCounter = 3;
     gGame.safeCounter = 3;
     displayBestScore();
-    elTopBar.querySelector('.timer span').innerText = '000'
-    elTopBar.querySelector('.life span').innerText = '❤❤❤'
-    elTopBar.querySelector('.face').innerText = '🙂'
-    document.querySelector('.boom').disabled = false
+    elTopBar.querySelector('.timer span').innerText = '000';
+    elTopBar.querySelector('.life span').innerText = '❤❤❤';
+    elTopBar.querySelector('.face').innerText = '🙂';
+    document.querySelector('.boom').disabled = false;
+    if (gElManualMineBtn) gElManualMineBtn.disabled = false
     elTopBar.querySelectorAll('.hints button').forEach((el) => {
         el.innerHTML = '<img src="./img/lightbulb-on.png" alt=""></img>'
         el.disabled = false

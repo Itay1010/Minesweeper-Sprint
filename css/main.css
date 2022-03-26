@@ -81,9 +81,9 @@ h1 {
     border-radius: 10%;
 }
 
-.boom:disabled{
+.boom:disabled {
     background-color: #993857;
-    cursor:not-allowed;
+    cursor: not-allowed;
 }
 
 .safe-click {
@@ -123,7 +123,6 @@ input[name="difficulty"] {
     font-size: small;
     margin-bottom: 0px;
 }
-
 
 .face {
     display: inline-block;
@@ -169,12 +168,13 @@ input[name="difficulty"] {
     box-sizing: content-box;
     display: inline-block;
     position: relative;
+    overflow: hidden;
     padding: 0px;
     width: 136px;
     height: 38px;
     margin-left: -110px;
-    bottom: 72px;
-    left: 75px;
+    bottom: 69px;
+    left: 140px;
 }
 
 .hints button {
@@ -183,8 +183,8 @@ input[name="difficulty"] {
     border: none;
     background-color: transparent;
     width: 28px;
-    height: 41px;
-    margin: 0px;
+    height: 35px;
+    margin: 1px;
     vertical-align: middle;
 }
 
@@ -193,7 +193,7 @@ input[name="difficulty"] {
 }
 
 .hints button:hover {
-    width: 38px;
+    width: 35px;
     height: 45px;
 }
 
@@ -211,7 +211,6 @@ input[name="difficulty"] {
     position: relative;
     font-size: small;
     font-family: cursive;
-    border: none;
     border-radius: 10%;
     background-color: none;
     color: #dc8b36;
@@ -219,7 +218,6 @@ input[name="difficulty"] {
     height: 74px;
     left: 212px;
     bottom: 90px;
-    margin: 0px;
     margin-left: 82px;
     margin-bottom: 55px;
 }
