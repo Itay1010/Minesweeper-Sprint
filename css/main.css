@@ -1,0 +1,297 @@
+* {
+    text-align: center;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    user-select: none;
+}
+
+body {
+    background-image: url(../img/background2.jpg);
+    background-color: #053559;
+    background-size: 2550px;
+    background-repeat: no-repeat;
+    background-position: center -250px;
+    background-attachment: scroll;
+}
+
+h1 {
+    color: #e0e2db;
+    background-color: #586da1;
+    border: 50px solid black;
+    border-image: url(../img/title-border3.png) 45%;
+    border-image-repeat: repeat;
+    background-image: linear-gradient(#98648f78 17%, #3096be);
+    background-origin: border-box;
+    background-repeat: no-repeat;
+    width: 450px;
+    height: 171px;
+    margin: auto;
+    margin-bottom: 0px;
+    margin-top: 40px;
+    font-family: system-ui;
+}
+
+.modal {
+    position: absolute;
+    display: none;
+    opacity: 0%;
+    transition: 1s ease-in-out;
+    /* background-color: #74B2F4; */
+    background-color: none;
+    font-size: xx-large;
+    left: 40%;
+    top: 40%;
+    height: 230px;
+    width: 290px;
+    padding: 50px;
+}
+
+.container {
+    margin: auto;
+    width: 80%;
+    height: 80%;
+}
+
+.top-bar {
+    width: 450px;
+    height: 65px;
+    margin: auto;
+    margin-bottom: -2px;
+    background-color: #3096be;
+}
+
+.boom {
+    transition: 0.3s;
+    font-size: small;
+    display: inline-block;
+    position: relative;
+    background-color: #dc8b36;
+    border: none;
+    border-radius: 2%;
+    margin: -43px;
+    height: 28px;
+    width: 68px;
+    left: 81px;
+    bottom: 34px;
+    cursor: pointer;
+}
+
+.boom:hover {
+    background-color: #e34c7b;
+    border-radius: 10%;
+}
+
+.boom:disabled {
+    background-color: #993857;
+    cursor: not-allowed;
+}
+
+.safe-click {
+    transition: 0.2s;
+    display: inline-block;
+    position: relative;
+    background-color: #dc8b36;
+    border-radius: 10%;
+    width: 60px;
+    height: 36px;
+    margin-right: -69px;
+    left: -16px;
+    bottom: 26px;
+}
+
+.safe-click.active:hover {
+    box-shadow: 0px 0px 20px 6px #dc8b36c2;
+}
+
+.life {
+    display: inline-block;
+    position: relative;
+    margin-left: -55px;
+    width: 118px;
+    height: 22px;
+}
+
+.life span {
+    color: red;
+}
+
+input[name="difficulty"] {
+    position: relative;
+}
+
+.ininput-difficulty {
+    font-size: small;
+    margin-bottom: 0px;
+}
+
+.face {
+    display: inline-block;
+    position: relative;
+    font-size: larger;
+    height: 30px;
+    width: 30px;
+    left: -123px;
+    bottom: 31px;
+    cursor: pointer;
+}
+
+.timer {
+    display: inline-block;
+    position: relative;
+    height: 25px;
+    width: 66px;
+    left: 0px;
+    bottom: 0px;
+    background-color: goldenrod;
+    border-radius: 10%;
+}
+
+.timer span {
+    font-size: x-large;
+    font-family: monospace;
+}
+
+.best-time {
+    display: inline-block;
+    position: relative;
+    font-size: small;
+    background-color: rgba(241, 127, 34, 0.849);
+    border-radius: 10%;
+    margin-left: -106px;
+    height: 33px;
+    width: 72px;
+    left: 30px;
+    bottom: 27px;
+}
+
+.hints {
+    box-sizing: content-box;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    padding: 0px;
+    width: 136px;
+    height: 38px;
+    margin-left: -110px;
+    bottom: 69px;
+    left: 140px;
+}
+
+.hints button {
+    transition: 0.2s;
+    position: relative;
+    border: none;
+    background-color: transparent;
+    width: 28px;
+    height: 35px;
+    margin: 1px;
+    vertical-align: middle;
+}
+
+.hints img {
+    width: 130%;
+}
+
+.hints button:hover {
+    width: 35px;
+    height: 45px;
+}
+
+.hint-active:hover {
+    border: outset #dbc3bd;
+}
+
+.hint-active:active {
+    box-shadow: inset 1px 1px 20px 3px #00000099;
+    border: inset #dbc3bd;
+}
+
+.mines-left {
+    display: block;
+    position: relative;
+    font-size: small;
+    font-family: cursive;
+    border-radius: 10%;
+    background-color: none;
+    color: #dc8b36;
+    width: 52px;
+    height: 74px;
+    left: 212px;
+    bottom: 90px;
+    margin-left: 82px;
+    margin-bottom: 55px;
+}
+
+.mines-left span {
+    color: transparent;
+}
+
+.manual {
+    transition: 0.5s;
+    font-size: small;
+    font-family: cursive;
+    border: none;
+    border-radius: 10%;
+    background-color: inherit;
+    color: #dc8b36;
+    width: 52px;
+}
+
+.manual:hover {
+    background-color: #dc8b36;
+    color: black;
+}
+
+table {
+    width: 450px;
+    height: 550px;
+    margin: auto;
+    margin-top: 2px;
+    margin-bottom: 25px;
+    outline: 1px solid;
+    border-spacing: 0.1px;
+    font-size: 1rem;
+    table-layout: fixed;
+    /* background-color: green; */
+}
+
+.placing-mines {
+    cursor: cell;
+}
+
+tr {
+    width: 10px;
+    height: 10px;
+}
+
+.cell {
+    border: 2px solid black;
+    padding: 0px;
+    width: 6%;
+    height: 6%;
+    font-size: large;
+}
+
+.hidden {
+    background-color: #9c9c9c;
+}
+
+.displayed {
+    background-color: #e0e2db;
+}
+
+@keyframes flicker-cell {
+    from {
+        background-color: #9c9c9c;
+    }
+    to {
+        background-color: #e0e2db;
+    }
+}
+
+.flicker {
+    animation-name: flicker-cell;
+    animation-direction: alternate;
+    animation-iteration-count: 5;
+    animation-duration: 0.5s;
+}

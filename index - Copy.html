@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/main.css">
+    <title>Mine Sweeper Sprint 1</title>
+</head>
+
+<body onload="init()">
+    <h1>Mine Sweeper!</h1>
+    <div class="modal">
+        <span class="outcome">
+        </span>
+    </div>
+    <div class="container">
+        <div class="top-bar">
+            <button class="boom" onmouseup="boom(this)">7 BOOM!</button>
+            <div class="safe-click active" onmouseup="safeClick(this)">Safe Click</div>
+            <div class="hints" >
+                <button class="hint1" onmouseup="hintActive(this)"><img src="./img/lightbulb-on.png" alt=""></button>
+                <button class="hint2" onmouseup="hintActive(this)"><img src="./img/lightbulb-on.png" alt=""></button>
+                <button class="hint3" onmouseup="hintActive(this)"><img src="./img/lightbulb-on.png" alt=""></button>
+            </div>
+            <div class="life">lives: <span>❤❤❤</span></div>
+            <input onmouseup="changeSize(value)" type="radio" name="difficulty" value="4"> <span class="input-difficulty">Easy</span>
+            <input onmouseup="changeSize(value)" type="radio" name="difficulty" value="8" checked class="input-difficulty"> <span>Medium</span>
+            <input onmouseup="changeSize(value)" type="radio" name="difficulty" value="12"> <span class="input-difficulty">Hard</span>
+            <div class="face" onmouseover="faceToSmile(this)" onmouseout="faceToNoraml(this);" onmouseup="resetGame()">
+                🙂
+            </div>
+            <div class="timer">
+                <span>000</span>
+                <img style="width: 15px; vertical-align:text-bottom;" src="img/stopwatch.png" alt="">
+            </div>
+            <div class="best-time">Best Time 
+                <br>
+                <span></span>
+            </div>
+            <div class="mines-left">
+                <span>X3</span>
+                <button class="manual" onmouseup="manuelSetOn(this)">Manual Mines</button>
+            </div>
+            
+        </div>
+        <table>
+        </table>
+    </div>
+</body>
+
+<footer style="color: blueviolet;">CoffeeRight © Itay Zonshine 2022</footer>
+<script src="js/main.js"></script>
+<script src="js/cells.js"></script>
+<script src="js/mines.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/hint.js"></script>
+<script src="js/smaily.js"></script>
+<script src="js/undo-system.js"></script>
+
+</html>
